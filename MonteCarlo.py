@@ -40,7 +40,7 @@ class MonteCarlo:
         action = self.choose_action(game.state)
         old_state = deepcopy(game.state)
         reward = 0
-        newQ = deepcopy(self.Q)
+        new_q = deepcopy(self.Q)
         while not game.state.game_over:
             reward = game.step(action)
 
@@ -50,14 +50,14 @@ class MonteCarlo:
 
             self.N[old_state.dealers_first_card - 1][actual_total][action] += 1
             alpha = 1. / self.N[old_state.dealers_first_card - 1][actual_total][action]
-            newQ[old_state.dealers_first_card - 1][actual_total][action] += \
+            new_q[old_state.dealers_first_card - 1][actual_total][action] += \
                 alpha * (reward - self.Q[old_state.dealers_first_card - 1][actual_total][action])
 
             self.epsilon = 100. / (100 + self.N[old_state.dealers_first_card - 1][actual_total][action])
             action = self.choose_action(old_state)
             old_state = deepcopy(game.state)
 
-        self.Q = deepcopy(newQ)
+        self.Q = deepcopy(new_q)
         return reward
 
     def run_episodes(self, n):

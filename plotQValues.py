@@ -4,9 +4,9 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
-def plotQValues (q):
+def plotQValues (q, action=1):
 
-    Z = q[:, :, 1]
+    Z = q[:, :, action]
 
     X = np.arange(22)
     Y = np.arange(10)
